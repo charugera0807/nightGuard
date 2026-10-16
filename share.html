@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NightGuard — Shared trip</title><link rel="stylesheet" href="style.css" />
+<style>.wrap{max-width:520px;margin:8vh auto;padding:0 16px}</style></head>
+<body><main class="wrap"><div class="panel journey-panel"><h2 id="h">Loading trip…</h2><div id="body" class="journey-summary"></div></div></main>
+<script>
+const t = new URLSearchParams(location.search).get("t");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+async function load() {
+  const body = document.getElementById("body"), h = document.getElementById("h");
+  try {
+    const r = await fetch("/api/share/" + encodeURIComponent(t || ""));
+    if (!r.ok) throw 0;
+    const d = await r.json();
+    h.textContent = d.owner + "'s trip" + (d.status === "completed" ? " (completed)" : "");
+    const loc = d.lastLocation;
+    body.innerHTML = `
+      <div class="journey-detail"><span>From</span><b>${esc(d.start)}</b></div>
+      <div class="journey-detail"><span>To</span><b>${esc(d.destination)}</b></div>
+      <div class="journey-detail"><span>Departure</span><b>${esc(d.date)} ${esc(d.departure)}</b></div>
+      <div class="journey-detail"><span>Expected arrival</span><b>${esc(d.arrival || "Not specified")}</b></div>
+      <div class="journey-detail"><span>Transport</span><b>${esc(d.transportDetails)}</b></div>
+      <div class="journey-detail"><span>Last known location</span><b>${loc
+        ? `<a href="https://maps.google.com/?q=${loc.latitude},${loc.longitude}" target="_blank" rel="noopener">Open in maps</a> · ${new Date(loc.recordedAt).toLocaleTimeString()}`
+        : "Not recorded"}</b></div>`;
+  } catch { h.textContent = "Trip not found"; body.textContent = "This link is invalid or has expired."; }
+}
+load(); setInterval(load, 30000);
+</script></body></html>

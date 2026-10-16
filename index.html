@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101827" />
+  <title>NightGuard — Travel Safer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="NightGuard home">
+      <span class="brand-mark">✦</span>
+      <span>night<span class="brand-accent">guard</span><small>YOUR JOURNEY, YOUR SAFETY</small></span>
+    </a>
+    <div class="header-right">
+      <span class="secure-label"><span class="status-dot"></span> Safety dashboard</span>
+      <button class="avatar" aria-label="Profile">C</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> YOUR PERSONAL TRAVEL COMPANION</span>
+        <h1>Every journey.<br /><span>A little safer.</span></h1>
+        <p>Let someone you trust know where you're going. Set up your trip in a minute, and keep your safety plan close at hand.</p>
+        <div class="hero-pills">
+          <span>⌁ Trip sharing</span><span>♡ Trusted contacts</span><span>◉ SOS support</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="map-line line-one"></div><div class="map-line line-two"></div>
+        <div class="map-line line-three"></div>
+        <div class="map-pin"><span>✦</span></div>
+        <div class="map-tag tag-start"><i></i> YOUR START</div>
+        <div class="map-tag tag-end"><i></i> DESTINATION</div>
+        <div class="map-card"><span class="mini-shield">✓</span><div><b>Your trip, shared</b><small>Stay connected to people you trust</small></div></div>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="main-column">
+        <div class="section-heading">
+          <div><span class="step-label">STEP 01</span><h2>Plan your journey</h2><p>Tell us a little about your trip.</p></div>
+          <span class="optional-badge">~ 1 minute</span>
+        </div>
+
+        <form id="tripForm" class="panel form-panel">
+          <div class="panel-title"><span class="title-icon">⌖</span><div><h3>Trip details</h3><p>Where are you heading?</p></div></div>
+          <div class="form-grid">
+            <label class="field full">
+              <span>Starting location <b>*</b></span>
+              <div class="input-with-action"><input id="startLocation" required placeholder="e.g. University main gate" /><button type="button" class="text-action" id="useLocation">Use my location</button></div>
+              <small id="locationStatus" class="field-help">Location access is optional and requires your permission.</small>
+            </label>
+            <label class="field full">
+              <span>Destination <b>*</b></span>
+              <input id="destination" required placeholder="Where are you going?" />
+            </label>
+            <label class="field">
+              <span>Departure date <b>*</b></span>
+              <input id="departureDate" type="date" required />
+            </label>
+            <label class="field">
+              <span>Departure time <b>*</b></span>
+              <input id="departureTime" type="time" required />
+            </label>
+            <label class="field full">
+              <span>Expected arrival time</span>
+              <input id="arrivalTime" type="time" />
+            </label>
+          </div>
+
+          <div class="field-block">
+            <div class="field-heading"><span>How are you travelling?</span><small>Choose one option</small></div>
+            <div class="transport-options">
+              <label class="transport-option"><input type="radio" name="transport" value="Public transport" checked /><span class="transport-icon">▤</span><span><b>Public transport</b><small>Bus, cab, auto, train...</small></span><span class="radio-dot"></span></label>
+              <label class="transport-option"><input type="radio" name="transport" value="Own vehicle" /><span class="transport-icon">⌁</span><span><b>My vehicle</b><small>Bike, car, scooter...</small></span><span class="radio-dot"></span></label>
+              <label class="transport-option"><input type="radio" name="transport" value="Walking" /><span class="transport-icon">↗</span><span><b>Walking</b><small>On foot</small></span><span class="radio-dot"></span></label>
+              <label class="transport-option"><input type="radio" name="transport" value="Other" /><span class="transport-icon">＋</span><span><b>Other</b><small>Something else</small></span><span class="radio-dot"></span></label>
+            </div>
+          </div>
+
+          <div id="publicFields" class="form-grid transport-fields">
+            <label class="field"><span>Type of transport <b>*</b></span>
+              <select id="publicType"><option value="Bus">Bus</option><option value="Cab / Taxi">Cab / Taxi</option><option value="Auto-rickshaw">Auto-rickshaw</option><option value="Train / Metro">Train / Metro</option><option value="Shared vehicle">Shared vehicle</option><option value="Other">Other</option></select>
+            </label>
+            <label class="field"><span>Vehicle number (if known)</span><input id="publicVehicle" placeholder="e.g. HR  XX 1234" /></label>
+          </div>
+          <div id="ownFields" class="form-grid transport-fields hidden">
+            <label class="field"><span>Your vehicle <b>*</b></span>
+              <select id="ownType"><option value="Scooter">Scooter</option><option value="Motorcycle">Motorcycle</option><option value="Car">Car</option><option value="Bicycle">Bicycle</option><option value="Other">Other</option></select>
+            </label>
+            <label class="field"><span>Registration number (optional)</span><input id="ownVehicle" placeholder="e.g. HR  XX 1234" /></label>
+          </div>
+          <div id="otherFields" class="form-grid transport-fields hidden">
+            <label class="field full"><span>Travel method</span><input id="otherType" placeholder="Describe your travel method" /></label>
+          </div>
+
+          <div class="form-actions"><span><b>*</b> Required fields</span><button class="primary-button" type="submit">Save trip details <span>→</span></button></div>
+        </form>
+
+        <div class="section-heading contact-heading">
+          <div><span class="step-label">STEP 02</span><h2>Your trusted people</h2><p>Choose who you want to contact in an emergency.</p></div>
+        </div>
+        <div class="panel contacts-panel">
+          <div class="panel-title"><span class="title-icon pink">♡</span><div><h3>Emergency contacts</h3><p>These details are saved only in this browser demo.</p></div></div>
+          <div class="form-grid">
+            <label class="field"><span>Contact name</span><input id="contactName" placeholder="e.g. Mom, best friend" /></label>
+            <label class="field"><span>Phone number</span><input id="contactPhone" type="tel" placeholder="+91 98765 43210" /></label>
+          </div>
+          <button id="saveContact" class="secondary-button" type="button">＋ Add trusted contact</button>
+          <div id="contactList" class="contact-list"><div class="empty-contacts">No contacts added yet. Add someone you trust.</div></div>
+        </div>
+      </div>
+
+      <aside class="side-column">
+        <div class="sos-panel">
+          <div class="sos-top"><span class="sos-symbol">✦</span><span class="live-label"><i></i> READY WHEN YOU NEED IT</span></div>
+          <h2>Need help?</h2><p>Press and hold the SOS button to prepare an emergency alert for your trusted contacts.</p>
+          <button id="sosButton" class="sos-button" type="button" aria-label="Press and hold to prepare an SOS alert"><span class="sos-ring">SOS</span><span class="sos-caption">PRESS &amp; HOLD</span></button>
+          <p class="sos-note">This demo opens your device's available sharing options. It does not automatically call emergency services or send SMS.</p>
+          <div id="sosStatus" class="sos-status" role="status" aria-live="polite"></div>
+        </div>
+
+        <div class="panel journey-panel">
+          <div class="panel-title"><span class="title-icon green">⌁</span><div><h3>Your journey</h3><p>Trip summary</p></div></div>
+          <div id="journeySummary" class="journey-summary"><div class="journey-empty"><span>⌖</span><b>No active trip yet</b><small>Save your trip details to see your journey here.</small></div></div>
+          <button id="shareTrip" class="secondary-button full-button" type="button" disabled>Share trip details ↗</button>
+        </div>
+
+        <div class="last-location-card">
+          <div class="last-location-icon">◉</div>
+          <div><b>Last known location</b><p id="lastLocation">Not recorded yet</p><small>Location updates require a powered-on device, permission, and a supported connection.</small></div>
+        </div>
+
+        <div class="privacy-note"><span>♧</span><p><b>Your privacy matters.</b> Share only with people you trust. This prototype stores trip and contact details in your browser, not on a secure server.</p></div>
+      </aside>
+    </section>
+
+    <section class="how-it-works">
+      <div><span class="step-label">BUILT AROUND YOU</span><h2>Simple by design.<br /><span>Safety-minded by default.</span></h2></div>
+      <div class="benefit"><span>01</span><div><b>Plan before you go</b><p>Record your destination, departure time, and transport details.</p></div></div>
+      <div class="benefit"><span>02</span><div><b>Keep trusted people in the loop</b><p>Share a trip summary so someone knows your plan.</p></div></div>
+      <div class="benefit"><span>03</span><div><b>Know the limitations</b><p>For dependable live tracking, a secure backend and a native mobile app may be needed.</p></div></div>
+    </section>
+    <footer><a class="brand footer-brand" href="#"><span class="brand-mark">✦</span><span>night<span class="brand-accent">guard</span><small>YOUR JOURNEY, YOUR SAFETY</small></span></a><span>Student safety prototype · Stay aware, stay connected.</span></footer>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="api.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

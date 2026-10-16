@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NightGuard — Sign in</title><link rel="stylesheet" href="style.css" />
+<style>.auth{max-width:420px;margin:12vh auto;padding:0 16px}.auth .field{display:block;margin-bottom:14px}.auth .primary-button{width:100%}.auth p{margin-top:14px;text-align:center}</style></head>
+<body><main class="auth"><form class="panel form-panel" id="authForm">
+  <h2 id="title">Sign in</h2>
+  <label class="field" id="nameRow" hidden><span>Name</span><input id="name" autocomplete="name" /></label>
+  <label class="field"><span>Email</span><input id="email" type="email" required autocomplete="email" /></label>
+  <label class="field"><span>Password</span><input id="password" type="password" minlength="8" required autocomplete="current-password" /></label>
+  <small id="msg" class="field-help" role="alert"></small>
+  <button class="primary-button" type="submit" id="submit">Sign in</button>
+  <p><a href="#" id="toggle">Need an account? Register</a></p>
+</form></main>
+<script src="api.js"></script>
+<script>
+let register = false;
+const $ = id => document.getElementById(id);
+$("toggle").onclick = e => { e.preventDefault(); register = !register;
+  $("nameRow").hidden = !register; $("title").textContent = $("submit").textContent = register ? "Create account" : "Sign in";
+  $("toggle").textContent = register ? "Have an account? Sign in" : "Need an account? Register"; };
+$("authForm").onsubmit = async e => { e.preventDefault(); $("msg").textContent = "";
+  try { register ? await API.register($("name").value, $("email").value, $("password").value) : await API.login($("email").value, $("password").value);
+    location.href = "index.html"; } catch (err) { $("msg").textContent = err.message; } };
+</script></body></html>
